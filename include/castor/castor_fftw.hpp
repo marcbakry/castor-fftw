@@ -46,7 +46,7 @@ matrix<std::complex<float>> xfft(matrix<std::complex<float>> &X, int sign, int d
 {
     auto m = size(X,1); // nb. of lines
     auto n = size(X,2); // nb. of columns
-    bool isMatrix = m == 1 || n == 1;
+    bool isMatrix = (m != 1 && n != 1);
     matrix<std::complex<float>> Y = zeros<std::complex<float>>(m,n);
     fftwf_complex *in = reinterpret_cast<fftwf_complex*>(&X(0));
     fftwf_complex *out = reinterpret_cast<fftwf_complex*>(&Y(0));
