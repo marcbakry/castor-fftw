@@ -40,6 +40,10 @@ matrix<std::complex<float>> fft(matrix<float> &X, int dim=1);
 matrix<std::complex<float>> fft(matrix<std::complex<float>> &X, int dim=1);
 matrix<std::complex<float>> ifft(matrix<float> &X, int dim=1);
 matrix<std::complex<float>> ifft(matrix<std::complex<float>> &X, int dim=1);
+matrix<std::complex<float>> fft2(matrix<float> &X);
+matrix<std::complex<float>> fft2(matrix<std::complex<float>> &X);
+matrix<std::complex<float>> ifft2(matrix<float> &X);
+matrix<std::complex<float>> ifft2(matrix<std::complex<float>> &X);
 
 // interface to forward/backward 1d FFT depending on sign
 matrix<std::complex<float>> xfft(matrix<std::complex<float>> &X, int sign, int dim=1)
@@ -82,6 +86,23 @@ matrix<std::complex<float>> xfft(matrix<std::complex<float>> &X, int sign, int d
     }
     return Y;
 }
+
+
+// // interface to forward/backward 2d FFT depending on sign
+matrix<std::complex<float>> xfft2(matrix<std::complex<float>> &X, int sign)
+{
+    auto m = size(X,1); // nb. of lines
+    auto n = size(X,2); // nb. of columns
+    matrix<std::complex<float>> Y = zeros<std::complex<float>>(m,n);
+    fftwf_complex *in  = reinterpret_cast<fftwf_complex*>(&X(0));
+    fftwf_complex *out = reinterpret_cast<fftwf_complex*>(&Y(0));
+    //
+    fftwf_plan plan  = fftwf_plan_dft_2d(m,n,in,out,sign,FFTW_ESTIMATE);
+    fftwf_execute(plan);
+    fftwf_destroy_plan(plan);
+    return Y;
+}
+
 }
 
 matrix<std::complex<float>> fftw::fft(matrix<std::complex<float>> &X, int dim)
@@ -102,15 +123,24 @@ matrix<std::complex<float>> fftw::ifft(matrix<float> &X, int dim)
     matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
     return fftw::xfft(XX,FFTW_BACKWARD,dim);
 }
-
-// // interface to forward/backward 2d FFT depending on sign
-// matrix<std::complex<float>> fftw::xfft2(matrix<std::complex<float>> &X, int sign)
-// {
-//     auto m = size(X,1); // nb. of lines
-//     auto n = size(X,2); // nb. of columns
-//     matrix<std::complex<float>> Y = zeros<std::complex<float>>(m,n);
-//     return Y;
-// }
+matrix<std::complex<float>> fftw::fft2(matrix<std::complex<float>> &X)
+{
+    return fftw::xfft2(X,FFTW_FORWARD);
+}
+matrix<std::complex<float>> fftw::fft2(matrix<float> &X)
+{
+    matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
+    return fftw::xfft2(XX,FFTW_FORWARD);
+}
+matrix<std::complex<float>> fftw::ifft2(matrix<std::complex<float>> &X)
+{
+    return fftw::xfft2(X,FFTW_BACKWARD);
+}
+matrix<std::complex<float>> fftw::ifft2(matrix<float> &X)
+{
+    matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
+    return fftw::xfft2(XX,FFTW_BACKWARD);
+}
 
 
 // END OF NAMESPACE

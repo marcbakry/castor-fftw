@@ -35,6 +35,12 @@ int main()
     auto Ahat_2 = fftw::fft(A,2)/static_cast<float>(N); // Fourier transform line by line
     disp(abs(norm(fftw::ifft(Ahat_2,2) - A)));
 
+    //-------------------------------//
+    // FORWARD/BACKWARD 2d-TRANSFORM //
+    //-------------------------------//
+    auto Ahat = fftw::fft2(A)/static_cast<float>(M*N);
+    disp(abs(norm(fftw::ifft2(Ahat) - A)));
+
     // THE END
     return EXIT_SUCCESS;
 }
