@@ -1,10 +1,8 @@
 Welcome !
 =========
 
-.. _label-analytical-scattering:
-
-Analytical scattering
-+++++++++++++++++++++
+FFTW wrapper
+++++++++++++
 
 **UNDER CONSTRUCTION**
 
