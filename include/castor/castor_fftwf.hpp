@@ -6,7 +6,7 @@
 |                                                           |
 +-----------------------------------------------------------+
 |                                                           |
-|       FILE       : castor_fftw.hpp                        |
+|       FILE       : castor_fftwf.hpp                       |
 |       VERSION    : 0.1.0                                  |
 |       AUTHOR     : Marc Bakry                             |
 |       CREATION   : 29.11.2020                             |
