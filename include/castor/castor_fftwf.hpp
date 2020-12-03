@@ -12,13 +12,14 @@
 |       CREATION   : 29.11.2020                             |
 |       LAST MODIF : 29.11.2020                             |
 |       SYNOPSIS   : Wraps the well-known FFTW3 C library   |
-|                    within the 'castor' framework.         |
+|                    within the 'castor' framework for      |
+|                    single precision accuracy.             |
 |                                                           |
 +-----------------------------------------------------------+
 
  */
-#ifndef CASTOR_FFTW_HPP
-#define CASTOR_FFTW_HPP
+#ifndef CASTOR_FFTWF_HPP
+#define CASTOR_FFTWF_HPP
 
 #include <algorithm>
 extern "C"{
@@ -33,17 +34,26 @@ namespace castor{
 
 namespace fftw{
 
-/////////////////////////////////
-// SINGLE PRECISION TRANSFORMS //
-/////////////////////////////////
+//////////////////////////////////////////
+// DECLARATIONS OF THE PUBLIC INTERFACE //
+//////////////////////////////////////////
 matrix<std::complex<float>> fft(matrix<float> &X, int dim=1);
 matrix<std::complex<float>> fft(matrix<std::complex<float>> &X, int dim=1);
 matrix<std::complex<float>> ifft(matrix<float> &X, int dim=1);
 matrix<std::complex<float>> ifft(matrix<std::complex<float>> &X, int dim=1);
 matrix<std::complex<float>> fft2(matrix<float> &X);
 matrix<std::complex<float>> fft2(matrix<std::complex<float>> &X);
+matrix<std::complex<float>> fft2(std::size_t m, std::size_t n, matrix<float> &X);
+matrix<std::complex<float>> fft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X);
 matrix<std::complex<float>> ifft2(matrix<float> &X);
 matrix<std::complex<float>> ifft2(matrix<std::complex<float>> &X);
+matrix<std::complex<float>> ifft2(std::size_t m, std::size_t n, matrix<float> &X);
+matrix<std::complex<float>> ifft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X);
+
+
+//////////////////////////////
+// NON-DOCUMENTED INTERFACE //
+//////////////////////////////
 
 // interface to forward/backward 1d FFT depending on sign
 matrix<std::complex<float>> xfft(matrix<std::complex<float>> &X, int sign, int dim=1)
@@ -88,7 +98,7 @@ matrix<std::complex<float>> xfft(matrix<std::complex<float>> &X, int sign, int d
 }
 
 
-// // interface to forward/backward 2d FFT depending on sign
+// interface to forward/backward 2d FFT depending on sign
 matrix<std::complex<float>> xfft2(matrix<std::complex<float>> &X, int sign)
 {
     auto m = size(X,1); // nb. of lines
@@ -98,6 +108,21 @@ matrix<std::complex<float>> xfft2(matrix<std::complex<float>> &X, int sign)
     fftwf_complex *out = reinterpret_cast<fftwf_complex*>(&Y(0));
     //
     fftwf_plan plan  = fftwf_plan_dft_2d(m,n,in,out,sign,FFTW_ESTIMATE);
+    fftwf_execute(plan);
+    fftwf_destroy_plan(plan);
+    return Y;
+}
+
+// interface to forward/backward 2d FFT depending on sign
+matrix<std::complex<float>> xfft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X, int sign)
+{
+    // check consistency
+    if(m*n != size(X,1)*size(X,2)) error(__FILE__, __LINE__, __FUNCTION__,"Size of input given as parameter is not consistent with the number of elements in the input matrix.");
+    matrix<std::complex<float>> Y = zeros<std::complex<float>>(size(X,1),size(X,2));
+    fftwf_complex *in  = reinterpret_cast<fftwf_complex*>(&X(0));
+    fftwf_complex *out = reinterpret_cast<fftwf_complex*>(&Y(0));
+    //
+    fftwf_plan plan  = fftwf_plan_dft_2d(static_cast<int>(m),static_cast<int>(n),in,out,sign,FFTW_ESTIMATE);
     fftwf_execute(plan);
     fftwf_destroy_plan(plan);
     return Y;
@@ -132,6 +157,15 @@ matrix<std::complex<float>> fftw::fft2(matrix<float> &X)
     matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
     return fftw::xfft2(XX,FFTW_FORWARD);
 }
+matrix<std::complex<float>> fftw::fft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X)
+{
+    return fftw::xfft2(m,n,X,FFTW_FORWARD);
+}
+matrix<std::complex<float>> fftw::fft2(std::size_t m, std::size_t n, matrix<float> &X)
+{
+    matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
+    return fftw::xfft2(m,n,XX,FFTW_FORWARD);
+}
 matrix<std::complex<float>> fftw::ifft2(matrix<std::complex<float>> &X)
 {
     return fftw::xfft2(X,FFTW_BACKWARD);
@@ -141,9 +175,18 @@ matrix<std::complex<float>> fftw::ifft2(matrix<float> &X)
     matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
     return fftw::xfft2(XX,FFTW_BACKWARD);
 }
+matrix<std::complex<float>> fftw::ifft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X)
+{
+    return fftw::xfft2(m,n,X,FFTW_BACKWARD);
+}
+matrix<std::complex<float>> fftw::ifft2(std::size_t m, std::size_t n, matrix<float> &X)
+{
+    matrix<std::complex<float>> XX = cast<std::complex<float>>(X);
+    return fftw::xfft2(m,n,XX,FFTW_BACKWARD);
+}
 
 
 // END OF NAMESPACE
 }
 
-#endif // CASTOR_FFTW_HPP
+#endif // CASTOR_FFTWF_HPP

@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "castor/matrix.hpp"
-#include "castor/castor_fftw.hpp"
+#include "castor/castor_fftwf.hpp"
 
 using namespace castor;
 
@@ -39,7 +39,7 @@ int main()
     // FORWARD/BACKWARD 2d-TRANSFORM //
     //-------------------------------//
     auto Ahat = fftw::fft2(A)/static_cast<float>(M*N);
-    disp(abs(norm(fftw::ifft2(Ahat) - A)));
+    disp(abs(norm(fftw::ifft2(M,N,Ahat) - A)));
 
     // THE END
     return EXIT_SUCCESS;
