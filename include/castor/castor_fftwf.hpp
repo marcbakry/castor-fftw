@@ -52,6 +52,9 @@ matrix<std::complex<float>> ifft2(std::size_t m, std::size_t n, matrix<std::comp
 
 matrix<float> fftfreq(std::size_t n, float d = 1.);
 
+matrix<std::complex<float>> fftshift(std::complex<float> const &A, int dim=-1);
+matrix<std::complex<float>> ifftshift(std::complex<float> const &A, int dim=-1);
+
 
 //////////////////////////////
 // NON-DOCUMENTED INTERFACE //
@@ -191,7 +194,7 @@ matrix<std::complex<float>> fftw::ifft2(std::size_t m, std::size_t n, matrix<flo
 
 matrix<float> fftw::fftfreq(std::size_t n, float d)
 {
-    matrix<float> freq;
+    matrix<float> freq = zeros(1,n);
     if(n%2 == 0)
     {
         for(std::size_t i=0; i<n/2; ++i) freq(i)     = i/(d*n);
@@ -203,6 +206,35 @@ matrix<float> fftw::fftfreq(std::size_t n, float d)
         for(std::size_t i=0; i<(n-1)/2; ++i)   freq(i) = -(1+i)/(d*n);
     }
     return freq;
+}
+
+
+matrix<std::complex<float>> fftshift(matrix<std::complex<float>> const &A, int dim)
+{
+    std::size_t m=size(A,1), n=size(A,2);
+    matrix<std::complex<float>> As = zeros(m,n);
+
+    //
+    if(m == 1 || n == 1) // one-dimensional case
+    {
+        std::size_t mn  = m*n;
+        std::size_t cnt = 0;
+        if(mn%2 == 0)
+        {
+            for(std::size_t i=n/2; i<n; ++i) As(cnt++) = A(i);
+            for(std::size_t i=0; i<n/2; ++i) As(cnt++) = A(i);
+        }
+        else
+        {
+            // 
+        }
+    }
+    else
+    {
+        //
+    }
+    //
+    return As;
 }
 
 // END OF NAMESPACE

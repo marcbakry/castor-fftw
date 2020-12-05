@@ -190,7 +190,7 @@ matrix<std::complex<double>> fftw::ifft2(std::size_t m, std::size_t n, matrix<do
 
 matrix<double> fftw::fftfreq(std::size_t n, double d)
 {
-    matrix<double> freq;
+    matrix<double> freq = zeros(1,n);
     if(n%2 == 0)
     {
         for(std::size_t i=0; i<n/2; ++i) freq(i)     = i/(d*n);
