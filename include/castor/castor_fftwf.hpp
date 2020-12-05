@@ -50,7 +50,7 @@ matrix<std::complex<float>> ifft2(matrix<std::complex<float>> &X);
 matrix<std::complex<float>> ifft2(std::size_t m, std::size_t n, matrix<float> &X);
 matrix<std::complex<float>> ifft2(std::size_t m, std::size_t n, matrix<std::complex<float>> &X);
 
-matrix<float> fftfreq(std::size_t n, float d = 1.)
+matrix<float> fftfreq(std::size_t n, float d = 1.);
 
 
 //////////////////////////////
