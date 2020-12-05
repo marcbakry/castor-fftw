@@ -50,6 +50,8 @@ matrix<std::complex<double>> ifft2(matrix<std::complex<double>> &X);
 matrix<std::complex<double>> ifft2(std::size_t m, std::size_t n, matrix<double> &X);
 matrix<std::complex<double>> ifft2(std::size_t m, std::size_t n, matrix<std::complex<double>> &X);
 
+matrix<double> fftfreq(std::size_t n, double d = 1.);
+
 
 //////////////////////////////
 // NON-DOCUMENTED INTERFACE //
@@ -185,6 +187,22 @@ matrix<std::complex<double>> fftw::ifft2(std::size_t m, std::size_t n, matrix<do
     return fftw::xfft2(m,n,XX,FFTW_BACKWARD);
 }
 
+
+matrix<double> fftw::fftfreq(std::size_t n, double d)
+{
+    matrix<double> freq;
+    if(n%2 == 0)
+    {
+        for(std::size_t i=0; i<n/2; ++i) freq(i)     = i/(d*n);
+        for(std::size_t i=0; i<n/2; ++i) freq(n-1-i) = -(1+i)/(d*n);
+    }
+    else
+    {
+        for(std::size_t i=0; i<(n-1)/2+1; ++i) freq(i) = i/(d*n);
+        for(std::size_t i=0; i<(n-1)/2; ++i)   freq(i) = -(1+i)/(d*n);
+    }
+    return freq;
+}
 
 // END OF NAMESPACE
 }
