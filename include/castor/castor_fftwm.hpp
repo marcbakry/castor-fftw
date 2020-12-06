@@ -44,12 +44,13 @@ matrix<T> fftshift(matrix<T> const &A, int dim = 0)
         std::size_t cnt = 0;
         if(mn%2 == 0)
         {
-            for(std::size_t i=n/2; i<n; ++i) As(cnt++) = A(i);
-            for(std::size_t i=0; i<n/2; ++i) As(cnt++) = A(i);
+            for(std::size_t i=mn/2; i<mn; ++i) As(cnt++) = A(i);
+            for(std::size_t i=0; i<mn/2; ++i)  As(cnt++) = A(i);
         }
         else
         {
-            // 
+            for(std::size_t i=(mn-1)/2+1; i<mn; ++i) As(cnt++) = A(i);
+            for(std::size_t i=0; i<(mn-1)/2+1; ++i)  As(cnt++) = A(i);
         }
     }
     else
@@ -60,6 +61,35 @@ matrix<T> fftshift(matrix<T> const &A, int dim = 0)
     return As;
 }
 
+
+template<typename T>
+matrix<T> ifftshift(matrix<T> const &As, int dim = 0)
+{
+    std::size_t m=size(As,1), n=size(As,2);
+    matrix<T> A= zeros(m,n);
+
+    //
+    if(m == 1 || n == 1)
+    {
+        std::size_t mn  = m*n;
+        std::size_t cnt = 0;
+        if(mn%2 == 0)
+        {
+            for(std::size_t i=mn/2; i<mn; ++i) A(cnt++) = As(i);
+            for(std::size_t i=0; i<mn/2; ++i) A(cnt++) = As(i);
+        }
+        else
+        {
+            for(std::size_t i=(mn-1)/2; i<mn; ++i) A(cnt++) = As(i);
+            for(std::size_t i=0; i<(mn-1)/2; ++i) A(cnt++) = As(i);
+        }
+    }
+    else
+    {
+        /* code */
+    }
+    return A;
+}
 
         
 }
