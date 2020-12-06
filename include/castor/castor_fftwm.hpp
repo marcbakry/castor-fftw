@@ -182,13 +182,13 @@ matrix<T> ifftshift_2d1d(matrix<T> const &As, int dim = 0)
 
 
 
+
+
 // PUBLIC INTERFACE
 template<typename T>
 matrix<T> fftshift(matrix<T> const &A, int dim = 0)
 {
     std::size_t m=size(A,1), n=size(A,2);
-    matrix<T> As= zeros(m,n);
-
     //
     if(m == 1 || n == 1) // one-dimensional case
     {
@@ -199,7 +199,7 @@ matrix<T> fftshift(matrix<T> const &A, int dim = 0)
         return fftshift_2d1d(A,dim);
     }
     //
-    return As;
+    return fftshift_2d1d(fftshift_2d1d(A,1),2);
 }
 
 
@@ -207,8 +207,6 @@ template<typename T>
 matrix<T> ifftshift(matrix<T> const &As, int dim = 0)
 {
     std::size_t m=size(As,1), n=size(As,2);
-    matrix<T> A= zeros(m,n);
-
     //
     if(m == 1 || n == 1)
     {
@@ -218,7 +216,7 @@ matrix<T> ifftshift(matrix<T> const &As, int dim = 0)
     {
         return ifftshift_2d1d(As,dim);
     }
-    return A;
+    return ifftshift_2d1d(ifftshift_2d1d(As,2),1);
 }
 
 

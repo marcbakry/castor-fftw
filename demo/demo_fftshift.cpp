@@ -38,10 +38,17 @@ int main()
     }
     disp(freq2,1);
     disp(fftw::fftshift(freq2,2),1);
-    disp(norm(fftw::ifftshift(fftw::fftshift(freq2,2)),"inf"),1);
+    disp(norm(fftw::ifftshift(fftw::fftshift(freq2,2))-freq2,"inf"),1);
 
     freq2 = transpose(freq2);
     disp(fftw::fftshift(freq2,1),1);
-    disp(norm(fftw::ifftshift(fftw::fftshift(freq2,1)),"inf"),1);
+    disp(norm(fftw::ifftshift(fftw::fftshift(freq2,1))-freq2,"inf"),1);
+
+    //
+    std::cout << std::endl << " - 2D version" << std::endl;
+    freq2 = matrix<float>({{0,1,2},{3,4,-4},{-3,-2,-1}});
+    disp(fftw::fftshift(freq2),1);
+    disp(norm(fftw::ifftshift(fftw::fftshift(freq2))-freq2,"inf"),1);
+    // the end
     return EXIT_SUCCESS;
 }
