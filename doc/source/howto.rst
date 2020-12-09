@@ -4,7 +4,7 @@
 How-to
 ======
 
-The **Castor-FFTW** wrapper has been divided into two headers. The first one, ``castor_fftwf.hpp`` is for the ``float`` precision while ``castor_fftw.hpp`` is for the ``double`` precision. Both should be included if you plan to mix ``float`` and ``double``. However, the main interface is made such that the function call remains the same whatever the precision. We describe below a small example extracted from the ``demo/`` folder.
+The **Castor-FFTW** wrapper has been divided into three headers. The first one, ``castor_fftwf.hpp`` is for the ``float`` precision while ``castor_fftw.hpp`` is for the ``double`` precision. Both should be included if you plan to mix ``float`` and ``double``. The third header ``castor_fftwm.hpp`` contains some templatized helper-functions (*m* stands for *miscellanous*). However, the main interface is made such that the function call remains the same whatever the precision. We describe below a small example extracted from the ``demo/`` folder.
 
 We recall that all functions of the **castor** project are defined within the namespace ``castor::``. However, the **castor** project already provides a FFT interface through the KISSFFT library. In order to avoid interferences, the functions of the **Castor-FFTW** wrapper are defined within the sub-namespace ``castor::fftw::``.
 
@@ -143,14 +143,74 @@ We give now two, somehow, practical examples in order to demonstrate the functio
 In both examples, the plots will be made using the graphical functionalities of the **castor** project. We refer to the `corresponding documentation <http://leprojetcastor.gitlab.labos.polytechnique.fr/castor/graphics.html>`_.
 
 
+Using the helpers
++++++++++++++++++
+
+The header ``castor_fftwm.hpp`` features three useful functions 
+
+ - ``fftfreq( ... )`` returns the frequencies corresponding to the result of the forward Fourier transform.
+ - ``fftshift( ... )`` swaps the input so that the result of the forward transform is sorted in the order of the ascending frequencies. Indeed, when performing a forward discrete Fourier transform, the result is an array where the "first half" corresponds to the positive frequencies and the *second half* to the negative frequencies.
+ - ``ifftshift( ... )`` is the reciprocal transformation of ``fftshift( ... )`` such that ``ifftshift(fftshift(x)) == x``.
+
+**WARNING:** Regarding ``(i)fftshift``, the function supports with the same interface the 1-dimensional case, the 1d case along a row/column of a matrix, and the 2d case. The 3d case will be implemented in the future. 
+
+We give an example below. From the empty minimum ``.cpp`` file given at the top, we first create a frequency vector by assuming a sampling over the interval ``[0,1]`` at 10 Hz.
+
+.. code:: c++
+
+    #include "castor/matrix.hpp"
+    #include "castor/castor_fftw.hpp"
+    #include "castor/castor_fftwm.hpp"
+
+    using namespace castor;
+
+    int main()
+    {
+        std::size_t N = 10;     // nb. of samples
+        double dt     = 1./N;   // sampling time interval
+
+        matrix<double> freqs = fftw::fftfreq(N, dt);    // compute the frequencies
+        disp(freqs,2,std::cout,N,N);
+
+        freqs = fftw::fftshift(freqs);
+        disp(freqs,2,std::cout,N,N);
+
+        freqs = fftw::ifftshift(freqs);
+        disp(freqs,2,std::cout,N,N);
+    }
+
+The output should look like
+
+.. code:: text
+
+    Matrix 1x10 of type 'd' (80 B):
+            0      1.00000      2.00000      3.00000      4.00000     -5.00000     -4.00000     -3.00000     -2.00000     -1.00000  
+    Matrix 1x10 of type 'd' (80 B):
+     -5.00000     -4.00000     -3.00000     -2.00000     -1.00000            0      1.00000      2.00000      3.00000      4.00000  
+    Matrix 1x10 of type 'd' (80 B):
+            0      1.00000      2.00000      3.00000      4.00000     -5.00000     -4.00000     -3.00000     -2.00000     -1.00000 
+
+
 Fourier transform of sine functions
 +++++++++++++++++++++++++++++++++++
 
-plop
+In this example, we compute the Fourier transform of a sum of sine functions, we filter the higher frequency and we compute the new signal using the backward transform.
 
+**WARNING:** This example features plots which are made using the plotting features of **castor**. We refer to the corresponding documentation.
 
+First, let us create the main file.
 
-Regularization using a gaussian filter
-++++++++++++++++++++++++++++++++++++++
+.. code:: c++
 
-plop
+    #include "castor/matrix.hpp"
+    #include "castor/graphics.hpp"      // for the plots
+    #include "castor/castor_fftw.hpp"
+    #include "castor/castor_fftwm.hpp"
+
+    using namespace castor;
+
+    int main()
+    {
+        // your code here
+        return EXIT_SUCCESS;
+    }

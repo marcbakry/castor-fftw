@@ -26,7 +26,7 @@ It should be also available if you are using the Intel MKL library. Otherwise, y
 Install the headers
 -------------------
 
-In order to install **Castor-FFTW**, it is sufficient to copy the two header-files in the ``castor-fftw/include/castor/`` folder to the folder where the header-files of the **castor project** are installed. 
+In order to install **Castor-FFTW**, it is sufficient to copy the three header-files in the ``castor-fftw/include/castor/`` folder to the folder where the header-files of the **castor project** are installed. 
 
 
 That's all! See the :ref:`label-howto` section for the compile instructions.

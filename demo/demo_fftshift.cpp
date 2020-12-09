@@ -11,6 +11,7 @@ int main()
     std::cout << "+------------------------------------------+" << std::endl;
     std::cout << "| TESTING CASTOR-FFTW: FFTFREQ/(I)FFTSHIFT |" << std::endl;
     std::cout << "+------------------------------------------+" << std::endl;
+    
     //
     std::cout << " - 1D version" << std::endl;
     std::cout << " -- N odd" << std::endl;
