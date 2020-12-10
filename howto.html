@@ -1,0 +1,393 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How-to &mdash; Castor FFTW  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/main_stylesheet.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developers" href="developers.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Castor FFTW
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How-to</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How-to</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#basics">Basics</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-minimal-example">A minimal example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#practical-examples">Practical examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-helpers">Using the helpers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fourier-transform-of-sine-functions">Fourier transform of sine functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">Developers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Castor FFTW</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>How-to</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/howto.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="how-to">
+<span id="label-howto"></span><h1>How-to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h1>
+<p>The <strong>Castor-FFTW</strong> wrapper has been divided into three headers. The first one, <code class="docutils literal notranslate"><span class="pre">castor_fftwf.hpp</span></code> is for the <code class="docutils literal notranslate"><span class="pre">float</span></code> precision while <code class="docutils literal notranslate"><span class="pre">castor_fftw.hpp</span></code> is for the <code class="docutils literal notranslate"><span class="pre">double</span></code> precision. Both should be included if you plan to mix <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code>. The third header <code class="docutils literal notranslate"><span class="pre">castor_fftwm.hpp</span></code> contains some templatized helper-functions (<em>m</em> stands for <em>miscellanous</em>). However, the main interface is made such that the function call remains the same whatever the precision. We describe below a small example extracted from the <code class="docutils literal notranslate"><span class="pre">demo/</span></code> folder.</p>
+<p>We recall that all functions of the <strong>castor</strong> project are defined within the namespace <code class="docutils literal notranslate"><span class="pre">castor::</span></code>. However, the <strong>castor</strong> project already provides a FFT interface through the KISSFFT library. In order to avoid interferences, the functions of the <strong>Castor-FFTW</strong> wrapper are defined within the sub-namespace <code class="docutils literal notranslate"><span class="pre">castor::fftw::</span></code>.</p>
+</div>
+<div class="section" id="basics">
+<h1>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-minimal-example">
+<h2>A minimal example<a class="headerlink" href="#a-minimal-example" title="Permalink to this headline">¶</a></h2>
+<p>The minimal <code class="docutils literal notranslate"><span class="pre">demo_float.cpp</span></code> file should look like this</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;castor/matrix.hpp&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor_fftwf.hpp&quot;</span><span class="cp"></span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">castor</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// your code here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We will compute Fourier transforms of a <code class="docutils literal notranslate"><span class="pre">float</span></code> matrix, compute the inverse transforms and compare them to the original <code class="docutils literal notranslate"><span class="pre">matrix</span></code>. Everything can be easily translated to <code class="docutils literal notranslate"><span class="pre">double</span></code> precision.</p>
+<p>First, let us create some data.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span>   <span class="n">N</span>   <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="n">matrix</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="n">A1d</span> <span class="o">=</span> <span class="n">rand</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// could have been rand&lt;float&gt;(1,N)</span>
+</pre></div>
+</div>
+<p>Then, we compute the forward Discrete Fourier Transform and we normalize it.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span> <span class="n">Ahat</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fft</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Many things happened internally in the line above. First, the matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> was <em>copied</em> into a <code class="docutils literal notranslate"><span class="pre">matrix&lt;std::complex&lt;float&gt;&gt;</span></code>. <strong>It would not have been the case if</strong> <code class="docutils literal notranslate"><span class="pre">A</span></code> <strong>had already been a</strong> <code class="docutils literal notranslate"><span class="pre">matrix&lt;std::complex&lt;float&gt;&gt;</span></code>. It is related to the current internals of the FFTW3 library. Then, the FFT was computed and returned as a <code class="docutils literal notranslate"><span class="pre">matrix&lt;std::complex&lt;float&gt;&gt;</span></code>. Since the result of <code class="docutils literal notranslate"><span class="pre">castor::fftw::fft()</span></code> is not normalized, we divide it by the number of elements. Now, we compute the backward transform and compare the result with the original data.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">disp</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">fftw</span><span class="o">::</span><span class="n">ifft</span><span class="p">(</span><span class="n">Ahat</span><span class="p">)</span> <span class="o">-</span> <span class="n">A</span><span class="p">)));</span>
+</pre></div>
+</div>
+<p>The result should be something like this depending on your computer</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>5.5672e-07
+</pre></div>
+</div>
+<p>A value of the order of <code class="docutils literal notranslate"><span class="pre">1e-06</span></code> is totally acceptable.</p>
+<p><strong>Remark:</strong> It is <em>not</em> possible to write</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Ap</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">ifft</span><span class="p">(</span><span class="n">fftw</span><span class="o">::</span><span class="n">fft</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">));</span> <span class="c1">// not possible</span>
+</pre></div>
+</div>
+<p>in our context. This is due to the wrapper which requires the use of a pointer to interact with the <code class="docutils literal notranslate"><span class="pre">C</span></code> functions. The issue will not be discussed further.</p>
+<p>Now, let us perform a 1D transform along the dimensions of a matrix. The behavior of <code class="docutils literal notranslate"><span class="pre">fftw::fft</span></code> is the same as the corresponding Matlab function.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">50</span><span class="p">;</span>
+<span class="n">A</span>    <span class="o">=</span> <span class="n">rand</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="c1">// default is column by column</span>
+<span class="n">Ahat</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fft</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="p">);</span>
+<span class="n">disp</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">fftw</span><span class="o">::</span><span class="n">ifft</span><span class="p">(</span><span class="n">Ahat</span><span class="p">)</span> <span class="o">-</span> <span class="n">A</span><span class="p">)));</span>
+<span class="c1">// transform line by line</span>
+<span class="n">Ahat</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fft</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+<span class="n">disp</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">fftw</span><span class="o">::</span><span class="n">ifft</span><span class="p">(</span><span class="n">Ahat</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">A</span><span class="p">)));</span>
+</pre></div>
+</div>
+<p>The result should look like</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>4.06223e-06
+4.24932e-06
+</pre></div>
+</div>
+<p>Finaly, we compute a 2D transform on a matrix. There are two ways to perform such a transform. By calling <code class="docutils literal notranslate"><span class="pre">fft2(A)</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code> is assumed to be two-dimensional, even if one dimension is equal to 1. By calling <code class="docutils literal notranslate"><span class="pre">fft2(M,N,A)</span></code>, <code class="docutils literal notranslate"><span class="pre">A</span></code> can have any size as long as <code class="docutils literal notranslate"><span class="pre">M*N</span> <span class="pre">==</span> <span class="pre">size(A,1)*size(A,2)</span></code>.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Ahat</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fft2</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">);</span>
+<span class="n">disp</span><span class="p">(</span><span class="n">abs</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">fftw</span><span class="o">::</span><span class="n">ifft2</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">Ahat</span><span class="p">)</span> <span class="o">-</span> <span class="n">A</span><span class="p">)));</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>6.5948e-06
+</pre></div>
+</div>
+<p><strong>Note:</strong> In future developments, the support for the three-dimensional FFT will be added through the <code class="docutils literal notranslate"><span class="pre">fftw::fft3(M,N,K,A)</span></code> interface where <code class="docutils literal notranslate"><span class="pre">(M,N,K)</span></code> are the dimensions.</p>
+</div>
+<div class="section" id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this headline">¶</a></h2>
+<p>Assuming that the <strong>castor</strong> project and <strong>Castor-FFTW</strong> have been installed in a standard location (meaning that the headers can be found automatically by the compiler), assuming that the compiler is <code class="docutils literal notranslate"><span class="pre">g++</span></code>, the program above can be compiled easily with the following command line (<strong>Ubuntu</strong> and <strong>MacOS</strong>)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>g++ demo_float.cpp -o test_float -lfftw3f
+</pre></div>
+</div>
+<p>For the <code class="docutils literal notranslate"><span class="pre">double</span></code> version,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>g++ demo_double.cpp -o test_double -lfftw3
+</pre></div>
+</div>
+<p>Obviously, if <code class="docutils literal notranslate"><span class="pre">float</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code> are mixed together, one can combine both</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>g++ demo_double_float.cpp -o test_double -lfftw3 -lfftw3f
+</pre></div>
+</div>
+<p>If, for one reason or the other, some headers cannot be found, it is possible to indicate their path to the compiler like</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>g++ -I/path/to/missing/headers main.cpp -o myExecutable -l...
+</pre></div>
+</div>
+<p><strong>Warning:</strong> All the header files are assumed to be within a <code class="docutils literal notranslate"><span class="pre">castor/</span></code> subfolder. Consequently, the command line should be</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>g++ -I/path/to/castor/folder -I/path/to/other/missing/headers main.cpp -o ...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="practical-examples">
+<h1>Practical examples<a class="headerlink" href="#practical-examples" title="Permalink to this headline">¶</a></h1>
+<p>We give now two, somehow, practical examples in order to demonstrate the functionalities of <strong>Castor-FFTW</strong>. In the first example, we simply compute and plot the amplitude spectrum of a sum of sine functions. In the second example, we compute the transform of a rectangular function which we smooth using a gaussian filter.</p>
+<p>In both examples, the plots will be made using the graphical functionalities of the <strong>castor</strong> project. We refer to the <a class="reference external" href="http://leprojetcastor.gitlab.labos.polytechnique.fr/castor/graphics.html">corresponding documentation</a>.</p>
+<div class="section" id="using-the-helpers">
+<h2>Using the helpers<a class="headerlink" href="#using-the-helpers" title="Permalink to this headline">¶</a></h2>
+<p>The header <code class="docutils literal notranslate"><span class="pre">castor_fftwm.hpp</span></code> features three useful functions</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">fftfreq(</span> <span class="pre">...</span> <span class="pre">)</span></code> returns the frequencies corresponding to the result of the forward Fourier transform.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fftshift(</span> <span class="pre">...</span> <span class="pre">)</span></code> swaps the input so that the result of the forward transform is sorted in the order of the ascending frequencies. Indeed, when performing a forward discrete Fourier transform, the result is an array where the “first half” corresponds to the positive frequencies and the <em>second half</em> to the negative frequencies.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ifftshift(</span> <span class="pre">...</span> <span class="pre">)</span></code> is the reciprocal transformation of <code class="docutils literal notranslate"><span class="pre">fftshift(</span> <span class="pre">...</span> <span class="pre">)</span></code> such that <code class="docutils literal notranslate"><span class="pre">ifftshift(fftshift(x))</span> <span class="pre">==</span> <span class="pre">x</span></code>.</p></li>
+</ul>
+</div></blockquote>
+<p><strong>WARNING:</strong> Regarding <code class="docutils literal notranslate"><span class="pre">(i)fftshift</span></code>, the function supports with the same interface the 1-dimensional case, the 1d case along a row/column of a matrix, and the 2d case. The 3d case will be implemented in the future.</p>
+<p>We give an example below. From the empty minimum <code class="docutils literal notranslate"><span class="pre">.cpp</span></code> file given at the top, we first create a frequency vector by assuming a sampling over the interval <code class="docutils literal notranslate"><span class="pre">[0,1]</span></code> at 10 Hz.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;castor/matrix.hpp&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor/castor_fftw.hpp&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor/castor_fftwm.hpp&quot;</span><span class="cp"></span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">castor</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="kt">size_t</span> <span class="n">N</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>     <span class="c1">// nb. of samples</span>
+    <span class="kt">double</span> <span class="n">dt</span>     <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">N</span><span class="p">;</span>   <span class="c1">// sampling time interval</span>
+
+    <span class="n">matrix</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dt</span><span class="p">);</span>    <span class="c1">// compute the frequencies</span>
+    <span class="n">disp</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">fftshift</span><span class="p">(</span><span class="n">freqs</span><span class="p">);</span>
+    <span class="n">disp</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">fftw</span><span class="o">::</span><span class="n">ifftshift</span><span class="p">(</span><span class="n">freqs</span><span class="p">);</span>
+    <span class="n">disp</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The output should look like</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Matrix 1x10 of type &#39;d&#39; (80 B):
+        0      1.00000      2.00000      3.00000      4.00000     -5.00000     -4.00000     -3.00000     -2.00000     -1.00000
+Matrix 1x10 of type &#39;d&#39; (80 B):
+ -5.00000     -4.00000     -3.00000     -2.00000     -1.00000            0      1.00000      2.00000      3.00000      4.00000
+Matrix 1x10 of type &#39;d&#39; (80 B):
+        0      1.00000      2.00000      3.00000      4.00000     -5.00000     -4.00000     -3.00000     -2.00000     -1.00000
+</pre></div>
+</div>
+</div>
+<div class="section" id="fourier-transform-of-sine-functions">
+<h2>Fourier transform of sine functions<a class="headerlink" href="#fourier-transform-of-sine-functions" title="Permalink to this headline">¶</a></h2>
+<p>In this example, we compute the Fourier transform of a sum of sine functions, we filter the higher frequency and we compute the new signal using the backward transform.</p>
+<p><strong>WARNING:</strong> This example features plots which are made using the plotting features of <strong>castor</strong>. We refer to the corresponding documentation.</p>
+<p>First, let us create the main file.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span> <span class="cpf">&quot;castor/matrix.hpp&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor/graphics.hpp&quot;</span><span class="c1">      // for the plots</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor/castor_fftw.hpp&quot;</span><span class="cp"></span>
+<span class="cp">#include</span> <span class="cpf">&quot;castor/castor_fftwm.hpp&quot;</span><span class="cp"></span>
+
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">castor</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// your code here</span>
+    <span class="k">return</span> <span class="n">EXIT_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developers.html" class="btn btn-neutral float-right" title="Developers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Ecole Polytechnique, Marc Bakry
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
