@@ -1,5 +1,5 @@
-PROJECT_NAME   = "Analytical Scattering"
-INPUT          = ../include
+PROJECT_NAME   = "Castor FFTW"
+INPUT          = ../include/castor
 GENERATE_XML   = YES
 GENERATE_LATEX = NO
 GENERATE_HTML  = NO

@@ -21,6 +21,12 @@ The library **Castor FFTW** aims at extending the `castor project <http://leproj
 
     howto
 
+.. toctree::
+    :caption: API
+    :maxdepth: 1
+
+    api
+
 
 .. toctree::
     :caption: Contact

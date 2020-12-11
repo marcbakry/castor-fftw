@@ -130,6 +130,23 @@ matrix<std::complex<double>> xfft2(std::size_t m, std::size_t n, matrix<std::com
 
 }
 
+// [fft]
+/// Computes the forward non-normalized 1d-Fourier transform. The default fft(A) assumes 
+/// that the input A is one-dimensional (either a line or a column), even
+/// if it is not the case (in that case, the flattened matrix is taken 
+/// into account).
+/// \code{.cpp}
+///     std::size_t N=10;
+///     matrix<double> A=rand<>(1,N);
+///     matrix<std::complex<double>> Ahat = fft(A)/static_cast<double>(N);
+/// \endcode
+/// It is also possible to compute the transform along the columns or the lines
+/// \code{.cpp}
+///     std::size_t N=10, M=5;
+///     matrix<double> A=rand<>(M,N);
+///     auto Ahat_col = fft(A)/static_cast<double>(M); // ... = fft(A,1) !
+///     auto Ahat_lin = fft(A,2)/static_cast<double>(N);
+/// \endcode
 matrix<std::complex<double>> fftw::fft(matrix<std::complex<double>> &X, int dim)
 {
     return fftw::xfft(X,FFTW_FORWARD,dim);
@@ -139,6 +156,9 @@ matrix<std::complex<double>> fftw::fft(matrix<double> &X, int dim)
     matrix<std::complex<double>> XX = cast<std::complex<double>>(X);
     return fftw::xfft(XX,FFTW_FORWARD,dim);
 }
+
+// [ifft]
+/// Computes the backward 1d-Fourier transform. The interface is similar to fft().
 matrix<std::complex<double>> fftw::ifft(matrix<std::complex<double>> &X, int dim)
 {
     return fftw::xfft(X,FFTW_BACKWARD,dim);
@@ -148,6 +168,19 @@ matrix<std::complex<double>> fftw::ifft(matrix<double> &X, int dim)
     matrix<std::complex<double>> XX = cast<std::complex<double>>(X);
     return fftw::xfft(XX,FFTW_BACKWARD,dim);
 }
+
+// [fft2]
+/// Computes the forward non-normalized 2d-Fourier tranform.
+/// \code{.cpp}
+///     std::size_t M=10, N=20;
+///     matrix<std::complex<double>> A = rand<>(M,N) + M_1I*rand<>(M,N);
+///     auto Ahat = fft2(A)/static_cast<double>(M*N);
+/// \endcode
+/// It is also possible to give the input as a 1d or 2d array and 
+/// provide its 'true' dimensions. The example above is equivalent to
+/// \code{.cpp}
+///     auto Ahat = fft2(M,N,A)/static_cast<double>(M*N);
+/// \endcode
 matrix<std::complex<double>> fftw::fft2(matrix<std::complex<double>> &X)
 {
     return fftw::xfft2(X,FFTW_FORWARD);
@@ -166,6 +199,9 @@ matrix<std::complex<double>> fftw::fft2(std::size_t m, std::size_t n, matrix<dou
     matrix<std::complex<double>> XX = cast<std::complex<double>>(X);
     return fftw::xfft2(m,n,XX,FFTW_FORWARD);
 }
+
+// [ifft2]
+/// Compute the backward 2d-Fourier transform.
 matrix<std::complex<double>> fftw::ifft2(matrix<std::complex<double>> &X)
 {
     return fftw::xfft2(X,FFTW_BACKWARD);
