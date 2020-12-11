@@ -211,15 +211,31 @@ First, let us create the main file.
 
     int main()
     {
+
+
+Now, we set the number of samples, the time span and the time step ``dt``.
+
+.. code:: c++
+
         //
         std::size_t N    = 1000;
         double      tmin = 0.;
         double      tmax = 1.;
         double      dt   = (tmax-tmin)/N;
+
+We also initialize the plots so that we can add plots at each important step.
+
+.. code:: c++
+
         // initialize figures
         figure fig;
         figure fighat;
         //
+
+In the next step, we initialize the data in the time domain as the sum of a *sine* function with frequency ``f1 = 3 Hz`` and amplitude ``A1 = 2``, and a second one with frequency ``f2 = 10 Hz`` and amplitude ``A2 = 10``. We add the result to the first plot.
+
+.. code:: c++
+
         matrix<double> t = zeros(1,N);
         for(auto i=0; i<N; ++i) t(i) = i*dt;
 
@@ -227,10 +243,18 @@ First, let us create the main file.
         // add 'f' to plot
         plot(fig,t,f,{"r-+"},{"'f'"});
 
+Now, we compute the discrete Fourier transform, sort the output in the frequency ascending order and we plot the amplitude as a function of the frequency.
+
+.. code:: c++
+
         matrix<std::complex<double>> fhat = fftw::fftshift(fftw::fft(f))/(double)N;
         matrix<double>               freq = fftw::fftshift(fftw::fftfreq(N,dt));
         // add fhat to plot
         plot(fighat,freq,abs(fhat),{"r-+"},{"F(f)"});
+
+We filter the signal by removing all frequencies whose absolute value is above 5 Hz, we plot the corresponding spectrum, we compute the backward transform of the signal and we plot the filtered signal
+
+.. code:: c++
 
         // now we filter the data
         auto fhat_filtered = fhat;
@@ -253,3 +277,15 @@ First, let us create the main file.
         // the end
         return EXIT_SUCCESS;
     }
+
+The signal in the time domain should look like the figure below.
+
+.. image:: img/f.png
+    :width: 600
+    :align: center
+
+The amplitude spectrum should look like
+
+.. image:: img/fhat.png
+    :width: 600
+    :align: center

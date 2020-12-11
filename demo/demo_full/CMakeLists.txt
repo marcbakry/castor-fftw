@@ -11,4 +11,4 @@ include(${VTK_USE_FILE})
 
 add_executable(demo_cfftw main.cpp)
 target_link_libraries(demo_cfftw PRIVATE ${VTK_LIBRARIES} -lfftw3)
-target_include_directories(demo_cfftw PRIVATE ../castor-fftw/include/)
+target_include_directories(demo_cfftw PRIVATE ../../../castor-fftw/include/)
