@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Main API &mdash; Castor FFTW  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/main_stylesheet.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="To-do list" href="developers.html" />
+    <link rel="prev" title="How-to" href="howto.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Castor FFTW
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+<p class="caption"><span class="caption-text">How-to</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="howto.html">How-to</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html#basics">Basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howto.html#practical-examples">Practical examples</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Main API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fft">fft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ifft">ifft</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fft2">fft2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ifft2">ifft2</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#helper-functions">Helper functions</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="developers.html">To-do list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developers.html#developers">Developers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Castor FFTW</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Main API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>This section describes the API of <strong>castor-fftw</strong>.</p>
+<div class="section" id="main-api">
+<h1>Main API<a class="headerlink" href="#main-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="fft">
+<span id="label-fft"></span><h2>fft<a class="headerlink" href="#fft" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw3fftER6matrixIfEi">
+<span id="_CPPv3N6castor4fftw3fftER6matrixIfEi"></span><span id="_CPPv2N6castor4fftw3fftER6matrixIfEi"></span><span id="castor::fftw::fft__matrix:float:R.i"></span><span class="target" id="castor__fftwf_8hpp_1a320b0905e05d2360e5033d0bfebedd75"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft</code><span class="sig-paren">(</span>matrix&lt;float&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw3fftER6matrixIfEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw3fftER6matrixINSt7complexIfEEEi">
+<span id="_CPPv3N6castor4fftw3fftER6matrixINSt7complexIfEEEi"></span><span id="_CPPv2N6castor4fftw3fftER6matrixINSt7complexIfEEEi"></span><span id="castor::fftw::fft__matrix:std::complex:float::R.i"></span><span class="target" id="castor__fftwf_8hpp_1a4d57acaa7014b965b505bb909748b2e2"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw3fftER6matrixINSt7complexIfEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw3fftER6matrixIdEi">
+<span id="_CPPv3N6castor4fftw3fftER6matrixIdEi"></span><span id="_CPPv2N6castor4fftw3fftER6matrixIdEi"></span><span id="castor::fftw::fft__matrix:double:R.i"></span><span class="target" id="castor__fftw_8hpp_1afacf793e11bdfcbbc2d356b3038db4f5"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft</code><span class="sig-paren">(</span>matrix&lt;double&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw3fftER6matrixIdEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw3fftER6matrixINSt7complexIdEEEi">
+<span id="_CPPv3N6castor4fftw3fftER6matrixINSt7complexIdEEEi"></span><span id="_CPPv2N6castor4fftw3fftER6matrixINSt7complexIdEEEi"></span><span id="castor::fftw::fft__matrix:std::complex:double::R.i"></span><span class="target" id="castor__fftw_8hpp_1af80738d13459eadaaaf448cccbc1b7cf"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw3fftER6matrixINSt7complexIdEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the forward non-normalized 1d-Fourier transform. The default fft(A) assumes that the input A is one-dimensional (either a line or a column), even if it is not the case (in that case, the flattened matrix is taken into account). <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">N</span><span class="o">=</span><span class="mi">10</span><span class="p">;</span>
+<span class="n">matrix</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span> <span class="n">A</span><span class="o">=</span><span class="n">rand</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="n">matrix</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="nb">complex</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;&gt;</span> <span class="n">Ahat</span> <span class="o">=</span> <span class="n">fft</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">static_cast</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+ It is also possible to compute the transform along the columns or the lines <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>std::size_t N=10, M=5;
+matrix&lt;double&gt; A=rand&lt;&gt;(M,N);
+auto Ahat_col = fft(A)/static_cast&lt;double&gt;(M); // ... = fft(A,1) !
+auto Ahat_lin = fft(A,2)/static_cast&lt;double&gt;(N);
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<p>See also <a class="reference internal" href="#label-ifft"><span class="std std-ref">ifft</span></a>.</p>
+</div>
+<div class="section" id="ifft">
+<span id="label-ifft"></span><h2>ifft<a class="headerlink" href="#ifft" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4ifftER6matrixIfEi">
+<span id="_CPPv3N6castor4fftw4ifftER6matrixIfEi"></span><span id="_CPPv2N6castor4fftw4ifftER6matrixIfEi"></span><span id="castor::fftw::ifft__matrix:float:R.i"></span><span class="target" id="castor__fftwf_8hpp_1addbfbc1c81797f006bc81042c5bf4a42"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft</code><span class="sig-paren">(</span>matrix&lt;float&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4ifftER6matrixIfEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4ifftER6matrixINSt7complexIfEEEi">
+<span id="_CPPv3N6castor4fftw4ifftER6matrixINSt7complexIfEEEi"></span><span id="_CPPv2N6castor4fftw4ifftER6matrixINSt7complexIfEEEi"></span><span id="castor::fftw::ifft__matrix:std::complex:float::R.i"></span><span class="target" id="castor__fftwf_8hpp_1a3b49bbd2bca2dd5894c3c0ef2b4ca99f"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4ifftER6matrixINSt7complexIfEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4ifftER6matrixIdEi">
+<span id="_CPPv3N6castor4fftw4ifftER6matrixIdEi"></span><span id="_CPPv2N6castor4fftw4ifftER6matrixIdEi"></span><span id="castor::fftw::ifft__matrix:double:R.i"></span><span class="target" id="castor__fftw_8hpp_1ad804a5a320f6b4f0c59e42ff13cde7f0"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft</code><span class="sig-paren">(</span>matrix&lt;double&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4ifftER6matrixIdEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4ifftER6matrixINSt7complexIdEEEi">
+<span id="_CPPv3N6castor4fftw4ifftER6matrixINSt7complexIdEEEi"></span><span id="_CPPv2N6castor4fftw4ifftER6matrixINSt7complexIdEEEi"></span><span id="castor::fftw::ifft__matrix:std::complex:double::R.i"></span><span class="target" id="castor__fftw_8hpp_1ab1f40df64e100a6a108bb1b8b59ed6af"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em>, int <em>dim</em> = 1<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4ifftER6matrixINSt7complexIdEEEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the backward 1d-Fourier transform. The interface is similar to fft(). </p>
+</dd></dl>
+
+<p>See also <a class="reference internal" href="#label-fft"><span class="std std-ref">fft</span></a>.</p>
+</div>
+<div class="section" id="fft2">
+<span id="label-fft2"></span><h2>fft2<a class="headerlink" href="#fft2" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIfE">
+<span id="_CPPv3N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIfE"></span><span id="_CPPv2N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIfE"></span><span id="castor::fftw::fft2__std::s.std::s.matrix:float:R"></span><span class="target" id="castor__fftwf_8hpp_1a07fe235be6633f48b231782ce1c7988b"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;float&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE">
+<span id="_CPPv3N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE"></span><span id="_CPPv2N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE"></span><span id="castor::fftw::fft2__std::s.std::s.matrix:std::complex:float::R"></span><span class="target" id="castor__fftwf_8hpp_1a0555343f4282de50816d06bea98297d1"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ER6matrixIfE">
+<span id="_CPPv3N6castor4fftw4fft2ER6matrixIfE"></span><span id="_CPPv2N6castor4fftw4fft2ER6matrixIfE"></span><span id="castor::fftw::fft2__matrix:float:R"></span><span class="target" id="castor__fftwf_8hpp_1a037b60ab331196bdc55855e62778481b"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>matrix&lt;float&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ER6matrixIfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ER6matrixINSt7complexIfEEE">
+<span id="_CPPv3N6castor4fftw4fft2ER6matrixINSt7complexIfEEE"></span><span id="_CPPv2N6castor4fftw4fft2ER6matrixINSt7complexIfEEE"></span><span id="castor::fftw::fft2__matrix:std::complex:float::R"></span><span class="target" id="castor__fftwf_8hpp_1af7316dadece39f25960d08fcb3ce23c6"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ER6matrixINSt7complexIfEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIdE">
+<span id="_CPPv3N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIdE"></span><span id="_CPPv2N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIdE"></span><span id="castor::fftw::fft2__std::s.std::s.matrix:double:R"></span><span class="target" id="castor__fftw_8hpp_1ac3685e7ad272c5f6b20e54797a8ec129"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;double&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixIdE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE">
+<span id="_CPPv3N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE"></span><span id="_CPPv2N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE"></span><span id="castor::fftw::fft2__std::s.std::s.matrix:std::complex:double::R"></span><span class="target" id="castor__fftw_8hpp_1a5de594a3b729d0007fd6c5a673ec7c7a"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ER6matrixIdE">
+<span id="_CPPv3N6castor4fftw4fft2ER6matrixIdE"></span><span id="_CPPv2N6castor4fftw4fft2ER6matrixIdE"></span><span id="castor::fftw::fft2__matrix:double:R"></span><span class="target" id="castor__fftw_8hpp_1afb1f42185eef01b77db504f365aae9d3"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>matrix&lt;double&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ER6matrixIdE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw4fft2ER6matrixINSt7complexIdEEE">
+<span id="_CPPv3N6castor4fftw4fft2ER6matrixINSt7complexIdEEE"></span><span id="_CPPv2N6castor4fftw4fft2ER6matrixINSt7complexIdEEE"></span><span id="castor::fftw::fft2__matrix:std::complex:double::R"></span><span class="target" id="castor__fftw_8hpp_1af86dbfd0f157aea4733d938f88f5ae10"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fft2</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw4fft2ER6matrixINSt7complexIdEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Computes the forward non-normalized 2d-Fourier tranform. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">M</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">20</span><span class="p">;</span>
+<span class="n">matrix</span><span class="o">&lt;</span><span class="n">std</span><span class="p">::</span><span class="nb">complex</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;&gt;</span> <span class="n">A</span> <span class="o">=</span> <span class="n">rand</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">)</span> <span class="o">+</span> <span class="n">M_1I</span><span class="o">*</span><span class="n">rand</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">);</span>
+<span class="n">auto</span> <span class="n">Ahat</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">static_cast</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+ It is also possible to give the input as a 1d or 2d array and provide its ‘true’ dimensions. The example above is equivalent to <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">auto</span> <span class="n">Ahat</span> <span class="o">=</span> <span class="n">fft2</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">static_cast</span><span class="o">&lt;</span><span class="n">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">M</span><span class="o">*</span><span class="n">N</span><span class="p">);</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+<p>See also <a class="reference internal" href="#label-ifft2"><span class="std std-ref">ifft2</span></a>.</p>
+</div>
+<div class="section" id="ifft2">
+<span id="label-ifft2"></span><h2>ifft2<a class="headerlink" href="#ifft2" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIfE">
+<span id="_CPPv3N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIfE"></span><span id="_CPPv2N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIfE"></span><span id="castor::fftw::ifft2__std::s.std::s.matrix:float:R"></span><span class="target" id="castor__fftwf_8hpp_1a054d8c3b8bf99d9c0e5de7c6c3fea234"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;float&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE">
+<span id="_CPPv3N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE"></span><span id="_CPPv2N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE"></span><span id="castor::fftw::ifft2__std::s.std::s.matrix:std::complex:float::R"></span><span class="target" id="castor__fftwf_8hpp_1a463477fa7d90d864f0769fed80ed4282"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIfEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ER6matrixIfE">
+<span id="_CPPv3N6castor4fftw5ifft2ER6matrixIfE"></span><span id="_CPPv2N6castor4fftw5ifft2ER6matrixIfE"></span><span id="castor::fftw::ifft2__matrix:float:R"></span><span class="target" id="castor__fftwf_8hpp_1a458fa1efac2e336c26a8707babf8d484"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>matrix&lt;float&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ER6matrixIfE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ER6matrixINSt7complexIfEEE">
+<span id="_CPPv3N6castor4fftw5ifft2ER6matrixINSt7complexIfEEE"></span><span id="_CPPv2N6castor4fftw5ifft2ER6matrixINSt7complexIfEEE"></span><span id="castor::fftw::ifft2__matrix:std::complex:float::R"></span><span class="target" id="castor__fftwf_8hpp_1a44f83d01276113e6609e705b5e1fc836"></span>matrix&lt;std::complex&lt;float&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;float&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ER6matrixINSt7complexIfEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIdE">
+<span id="_CPPv3N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIdE"></span><span id="_CPPv2N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIdE"></span><span id="castor::fftw::ifft2__std::s.std::s.matrix:double:R"></span><span class="target" id="castor__fftw_8hpp_1af89681eea8ccd494aa83ca0228a7e0cd"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;double&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixIdE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE">
+<span id="_CPPv3N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE"></span><span id="_CPPv2N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE"></span><span id="castor::fftw::ifft2__std::s.std::s.matrix:std::complex:double::R"></span><span class="target" id="castor__fftw_8hpp_1abac061e1f2ea64342ccd3b987a40114b"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>std::size_t <em>m</em>, std::size_t <em>n</em>, matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ENSt6size_tENSt6size_tER6matrixINSt7complexIdEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ER6matrixIdE">
+<span id="_CPPv3N6castor4fftw5ifft2ER6matrixIdE"></span><span id="_CPPv2N6castor4fftw5ifft2ER6matrixIdE"></span><span id="castor::fftw::ifft2__matrix:double:R"></span><span class="target" id="castor__fftw_8hpp_1a783399eaf4dd464e6430d8c752777cae"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>matrix&lt;double&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ER6matrixIdE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt id="_CPPv4N6castor4fftw5ifft2ER6matrixINSt7complexIdEEE">
+<span id="_CPPv3N6castor4fftw5ifft2ER6matrixINSt7complexIdEEE"></span><span id="_CPPv2N6castor4fftw5ifft2ER6matrixINSt7complexIdEEE"></span><span id="castor::fftw::ifft2__matrix:std::complex:double::R"></span><span class="target" id="castor__fftw_8hpp_1ab6282a632c2923415421179b4d992d9a"></span>matrix&lt;std::complex&lt;double&gt;&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifft2</code><span class="sig-paren">(</span>matrix&lt;std::complex&lt;double&gt;&gt; &amp;<em>X</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N6castor4fftw5ifft2ER6matrixINSt7complexIdEEE" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Compute the backward 2d-Fourier transform. </p>
+</dd></dl>
+
+<p>See also <a class="reference internal" href="#label-fft2"><span class="std std-ref">fft2</span></a>.</p>
+</div>
+</div>
+<div class="section" id="helper-functions">
+<h1>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h1>
+<p><strong>TO DO</strong></p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="developers.html" class="btn btn-neutral float-right" title="To-do list" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="howto.html" class="btn btn-neutral float-left" title="How-to" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Ecole Polytechnique, Marc Bakry
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
