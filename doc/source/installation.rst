@@ -26,6 +26,8 @@ It should be also available if you are using the Intel MKL library. Otherwise, y
 Install the headers
 -------------------
 
+The headers can be obtained by cloning the following repository: `https://github.com/marcbakry/castor-fftw/ <https://github.com/marcbakry/castor-fftw>`_.
+
 In order to install **Castor-FFTW**, it is sufficient to copy the three header-files in the ``castor-fftw/include/castor/`` folder to the folder where the header-files of the **castor project** are installed. 
 
 

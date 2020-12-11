@@ -289,3 +289,15 @@ The amplitude spectrum should look like
 .. image:: img/fhat.png
     :width: 600
     :align: center
+
+This example is available within the ``./demo/demo_full/`` folder. The different steps are recalled below. Starting from the ``castor-fftw/`` directory:
+
+.. code:: text
+
+    cd ./demo/demo_full/
+    mkdir build && cd build
+    cmake ..
+    make
+    ./demo_cfftw
+
+The ``./demo/demo_full/CMakeLists.txt`` assumes a standard installation of the **castor** project, VTK 8.2.0 and the FFTW3 on a Ubuntu-like system.
