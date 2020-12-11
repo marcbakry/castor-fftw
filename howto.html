@@ -387,6 +387,15 @@ Matrix 1x10 of type &#39;d&#39; (80 B):
 <a class="reference internal image-reference" href="_images/f.png"><img alt="_images/f.png" class="align-center" src="_images/f.png" style="width: 600px;" /></a>
 <p>The amplitude spectrum should look like</p>
 <a class="reference internal image-reference" href="_images/fhat.png"><img alt="_images/fhat.png" class="align-center" src="_images/fhat.png" style="width: 600px;" /></a>
+<p>This example is available within the <code class="docutils literal notranslate"><span class="pre">./demo/demo_full/</span></code> folder. The different steps are recalled below. Starting from the <code class="docutils literal notranslate"><span class="pre">castor-fftw/</span></code> directory:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd ./demo/demo_full/
+mkdir build &amp;&amp; cd build
+cmake ..
+make
+./demo_cfftw
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">./demo/demo_full/CMakeLists.txt</span></code> assumes a standard installation of the <strong>castor</strong> project, VTK 8.2.0 and the FFTW3 on a Ubuntu-like system.</p>
 </div>
 </div>
 
