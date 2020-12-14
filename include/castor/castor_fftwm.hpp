@@ -7,6 +7,15 @@
 namespace castor{
 namespace fftw{
 
+
+// [fftfreq]
+/// Returns the Discrete Fourier Transform sample frequencies.
+/// \code{.cpp}
+///     float       dt = 0.1;
+///     std::size_t n  = 100;
+///     //
+///     matrix<float> freq = fftfreq<float>(n,dt);
+/// \endcode
 template<typename T>
 matrix<T> fftfreq(std::size_t n, T d)
 {
@@ -185,6 +194,16 @@ matrix<T> ifftshift_2d1d(matrix<T> const &As, int dim = 0)
 
 
 // PUBLIC INTERFACE
+
+// [fftshift]
+/// Shifts the zero frequency component to the center
+/// of the spectrum.
+/// \code{.cpp}
+///     matrix<float> freq = fftfreq(10,0.1);
+///     auto freq_shifted = fftshift(freq);
+/// \endcode
+/// The dim argument enables shifting along 
+/// a given dimension.
 template<typename T>
 matrix<T> fftshift(matrix<T> const &A, int dim = 0)
 {
@@ -203,6 +222,8 @@ matrix<T> fftshift(matrix<T> const &A, int dim = 0)
 }
 
 
+// [ifftshift]
+/// Inverse transform of fftshift().
 template<typename T>
 matrix<T> ifftshift(matrix<T> const &As, int dim = 0)
 {
