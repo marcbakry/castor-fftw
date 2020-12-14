@@ -102,7 +102,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#ifft2">ifft2</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#helper-functions">Helper functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#helper-functions">Helper functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fftfreq">fftfreq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fftshift">fftshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ifftshift">ifftshift</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
@@ -338,7 +343,45 @@ auto Ahat_lin = fft(A,2)/static_cast&lt;double&gt;(N);
 </div>
 <div class="section" id="helper-functions">
 <h1>Helper functions<a class="headerlink" href="#helper-functions" title="Permalink to this headline">¶</a></h1>
-<p><strong>TO DO</strong></p>
+<div class="section" id="fftfreq">
+<h2>fftfreq<a class="headerlink" href="#fftfreq" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4I0EN6castor4fftw7fftfreqE6matrixI1TENSt6size_tE1T">
+<span id="_CPPv3I0EN6castor4fftw7fftfreqENSt6size_tE1T"></span><span id="_CPPv2I0EN6castor4fftw7fftfreqENSt6size_tE1T"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="castor__fftwm_8hpp_1aef42b99e7cf9606c98b690ca237afe10"></span>matrix&lt;<a class="reference internal" href="#_CPPv4I0EN6castor4fftw7fftfreqE6matrixI1TENSt6size_tE1T" title="castor::fftw::fftfreq::T">T</a>&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fftfreq</code><span class="sig-paren">(</span>std::size_t <em>n</em>, <a class="reference internal" href="#_CPPv4I0EN6castor4fftw7fftfreqE6matrixI1TENSt6size_tE1T" title="castor::fftw::fftfreq::T">T</a> <em>d</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6castor4fftw7fftfreqE6matrixI1TENSt6size_tE1T" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Returns the Discrete Fourier Transform sample frequencies. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span>       <span class="n">dt</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">;</span>
+<span class="n">std</span><span class="p">::</span><span class="n">size_t</span> <span class="n">n</span>  <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="o">//</span>
+<span class="n">matrix</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">freq</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">dt</span><span class="p">);</span>
+</pre></div>
+</div>
+ </p>
+</dd></dl>
+
+</div>
+<div class="section" id="fftshift">
+<span id="label-fftshift"></span><h2>fftshift<a class="headerlink" href="#fftshift" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4I0EN6castor4fftw8fftshiftE6matrixI1TERK6matrixI1TEi">
+<span id="_CPPv3I0EN6castor4fftw8fftshiftERK6matrixI1TEi"></span><span id="_CPPv2I0EN6castor4fftw8fftshiftERK6matrixI1TEi"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="castor__fftwm_8hpp_1aa7324cd5193f055b12ac42972b2c09ef"></span>matrix&lt;<a class="reference internal" href="#_CPPv4I0EN6castor4fftw8fftshiftE6matrixI1TERK6matrixI1TEi" title="castor::fftw::fftshift::T">T</a>&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">fftshift</code><span class="sig-paren">(</span>matrix&lt;<a class="reference internal" href="#_CPPv4I0EN6castor4fftw8fftshiftE6matrixI1TERK6matrixI1TEi" title="castor::fftw::fftshift::T">T</a>&gt; <em class="property">const</em> &amp;<em>A</em>, int <em>dim</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6castor4fftw8fftshiftE6matrixI1TERK6matrixI1TEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Shifts the zero frequency component to the center of the spectrum. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">matrix</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span> <span class="n">freq</span> <span class="o">=</span> <span class="n">fftfreq</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">0.1</span><span class="p">);</span>
+<span class="n">auto</span> <span class="n">freq_shifted</span> <span class="o">=</span> <span class="n">fftshift</span><span class="p">(</span><span class="n">freq</span><span class="p">);</span>
+</pre></div>
+</div>
+ The dim argument enables shifting along a given dimension. </p>
+</dd></dl>
+
+<p>See <a class="reference internal" href="#label-ifftshift"><span class="std std-ref">ifftshift</span></a>, <a class="reference internal" href="#label-fft"><span class="std std-ref">fft</span></a>, <a class="reference internal" href="#label-fft2"><span class="std std-ref">fft2</span></a>.</p>
+</div>
+<div class="section" id="ifftshift">
+<span id="label-ifftshift"></span><h2>ifftshift<a class="headerlink" href="#ifftshift" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4I0EN6castor4fftw9ifftshiftE6matrixI1TERK6matrixI1TEi">
+<span id="_CPPv3I0EN6castor4fftw9ifftshiftERK6matrixI1TEi"></span><span id="_CPPv2I0EN6castor4fftw9ifftshiftERK6matrixI1TEi"></span>template&lt;typename <code class="sig-name descname">T</code>&gt;<br /><span class="target" id="castor__fftwm_8hpp_1a39216c73e96437cb2e352c2d130ae9f9"></span>matrix&lt;<a class="reference internal" href="#_CPPv4I0EN6castor4fftw9ifftshiftE6matrixI1TERK6matrixI1TEi" title="castor::fftw::ifftshift::T">T</a>&gt; <code class="sig-prename descclassname">castor::fftw<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ifftshift</code><span class="sig-paren">(</span>matrix&lt;<a class="reference internal" href="#_CPPv4I0EN6castor4fftw9ifftshiftE6matrixI1TERK6matrixI1TEi" title="castor::fftw::ifftshift::T">T</a>&gt; <em class="property">const</em> &amp;<em>As</em>, int <em>dim</em> = 0<span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN6castor4fftw9ifftshiftE6matrixI1TERK6matrixI1TEi" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Inverse transform of fftshift(). </p>
+</dd></dl>
+
+<p>See <a class="reference internal" href="#label-fftshift"><span class="std std-ref">fftshift</span></a>, <a class="reference internal" href="#label-ifft"><span class="std std-ref">ifft</span></a>, <a class="reference internal" href="#label-ifft2"><span class="std std-ref">ifft2</span></a>.</p>
+</div>
 </div>
 
 

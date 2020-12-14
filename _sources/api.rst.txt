@@ -84,4 +84,27 @@ See also :ref:`label-fft2`.
 Helper functions
 ++++++++++++++++
 
-**TO DO**
+fftfreq
+-------
+.. doxygenfunction:: fftfreq(std::size_t n, T d)
+    :project: castorfftw
+
+
+.. _label-fftshift:
+
+fftshift
+--------
+.. doxygenfunction:: fftshift(matrix<T> const &A, int dim=0)
+    :project: castorfftw
+
+See :ref:`label-ifftshift`, :ref:`label-fft`, :ref:`label-fft2`.
+
+
+.. _label-ifftshift:
+
+ifftshift
+---------
+.. doxygenfunction:: ifftshift(matrix<T> const &A, int dim=0)
+    :project: castorfftw
+
+See :ref:`label-fftshift`, :ref:`label-ifft`, :ref:`label-ifft2`.
